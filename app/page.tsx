@@ -1,13 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { Button, FlexContainer } from "@components/sharedstyles";
+import { Button, FlexContainer, Text } from "@components/sharedstyles";
 import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <FlexContainer direction="col" gap="40px" height="100vh">
-      <h1 className="sr-only">Alma</h1>
+    <FlexContainer $direction="col" $gap="40px" $height="100vh">
+      <Text as="h1" className="sr-only">
+        Alma
+      </Text>
+
       <Image
         src="/images/alma.png"
         alt="Alma logo"
@@ -15,7 +18,8 @@ export default function HomePage() {
         height={50}
         priority
       />
-      <FlexContainer direction="col" gap="16px" width="320px">
+
+      <FlexContainer $direction="col" $gap="16px" $width="320px">
         <Button as={Link} href="/submit-lead">
           Submit Your Lead
         </Button>
