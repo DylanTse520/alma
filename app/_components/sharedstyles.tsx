@@ -29,11 +29,13 @@ const Text = styled.p<{
   $size?: string;
   $leading?: string;
   $weight?: "200" | "300" | "400" | "600" | "700" | "800" | "900";
+  $align?: string;
 }>`
   color: ${(props) => props.$color || "#000000"};
   font-size: ${(props) => props.$size || "16px"};
   font-weight: ${(props) => props.$weight || "400"};
   line-height: ${(props) => props.$leading || "1.5"};
+  text-align: ${(props) => props.$align || "center"};
 `;
 
 const Button = styled.button`
@@ -45,7 +47,7 @@ const Button = styled.button`
   color: #f3f3f3;
   border: none;
   border-radius: 10px;
-  padding: 14px 24px;
+  padding: 12px 24px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
