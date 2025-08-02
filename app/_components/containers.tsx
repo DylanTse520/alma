@@ -5,7 +5,7 @@ const HomeContainer = styled.div`
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  gap: 32px;
+  gap: 40px;
   height: 100vh;
   min-height: 100vh;
 `;
@@ -15,7 +15,7 @@ const HomeButtonContainer = styled.div`
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  width: 400px;
+  width: 320px;
   gap: 16px;
 `;
 
