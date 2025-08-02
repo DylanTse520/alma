@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { HomeButtonContainer, HomeContainer } from "@components/containers";
-import { Button } from "@components/sharedstyles";
+import { Button, FlexContainer } from "@components/sharedstyles";
+import Link from "next/link";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <HomeContainer>
+    <FlexContainer direction="col" gap="40px" height="100vh">
       <h1 className="sr-only">Alma</h1>
       <Image
         src="/images/alma.png"
@@ -15,10 +15,12 @@ export default function Home() {
         height={50}
         priority
       />
-      <HomeButtonContainer>
-        <Button>Public Lead Form</Button>
-        <Button>Internal Leads List</Button>
-      </HomeButtonContainer>
-    </HomeContainer>
+      <FlexContainer direction="col" gap="16px" width="320px">
+        <Button as={Link} href="/submit-lead">
+          Submit Your Lead
+        </Button>
+        <Button>View Leads</Button>
+      </FlexContainer>
+    </FlexContainer>
   );
 }

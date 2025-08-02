@@ -1,6 +1,27 @@
 import styled from "styled-components";
 
+const FlexContainer = styled.div<{
+  direction?: "row" | "col";
+  gap?: string;
+  justifyContent?: string;
+  alignItems?: string;
+  width?: string;
+  height?: string;
+}>`
+  display: flex;
+  flex-flow: ${(props) =>
+    props.direction === "col" ? "column nowrap" : "row nowrap"};
+  gap: ${(props) => props.gap || "16px"};
+  justify-content: ${(props) => props.justifyContent || "center"};
+  align-items: ${(props) => props.alignItems || "center"};
+  width: ${(props) => props.width || "auto"};
+  height: ${(props) => props.height || "auto"};
+`;
+
 const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   background-color: #1d1d1d;
   color: #f3f3f3;
@@ -17,4 +38,4 @@ const Button = styled.button`
   }
 `;
 
-export { Button };
+export { FlexContainer, Button };
