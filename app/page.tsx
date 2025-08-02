@@ -9,7 +9,7 @@ export default function Home() {
     <HomeContainer>
       <h1 className="sr-only">Alma</h1>
       <Image
-        src="/alma.png"
+        src="/images/alma.png"
         alt="Alma logo"
         width={150}
         height={50}
