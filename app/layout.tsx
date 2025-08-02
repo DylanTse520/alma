@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Provider as StoreProvider } from "jotai";
-import StyledComponentsRegistry from "./_lib/registry";
+import StyledComponentsRegistry from "@lib/registry";
 
 import "./globals.css";
 

@@ -1,7 +1,7 @@
 "use client";
 
-import { HomeButtonContainer, HomeContainer } from "./_components/containers";
-import { Button } from "./_components/sharedstyles";
+import { HomeButtonContainer, HomeContainer } from "@components/containers";
+import { Button } from "@components/sharedstyles";
 
 export default function Home() {
   return (
