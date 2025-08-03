@@ -14,12 +14,12 @@ const FileUploadContainer = styled.div<{ $error?: boolean }>`
   cursor: pointer;
 
   &:hover {
-    border-color: ${(props) => (props.$error ? "#ef4444" : "#3b82f6")};
+    border-color: ${(props) => (props.$error ? "#ef4444" : "#bfbfbf")};
     background-color: #f8fafc;
   }
 
   &.dragover {
-    border-color: #3b82f6;
+    border-color: #bfbfbf;
     background-color: #eff6ff;
   }
 `;

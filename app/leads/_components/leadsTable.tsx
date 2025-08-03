@@ -70,7 +70,7 @@ const PageButton = styled.button<{ $active?: boolean }>`
   padding: 6px 12px;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
-  background-color: ${(props) => (props.$active ? "#3b82f6" : "#ffffff")};
+  background-color: ${(props) => (props.$active ? "#bfbfbf" : "#ffffff")};
   color: ${(props) => (props.$active ? "#ffffff" : "#374151")};
   font-size: 14px;
   cursor: pointer;

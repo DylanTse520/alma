@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const FlexContainer = styled.div<{
-  $position?: string;
   $direction?: "row" | "col";
   $gap?: string;
   $justifyContent?: string;
@@ -11,10 +10,8 @@ const FlexContainer = styled.div<{
   $bgColor?: string;
   $padding?: string;
   $margin?: string;
-  $rounded?: string;
 }>`
   display: flex;
-  position: ${(props) => props.$position || "static"};
   flex-flow: ${(props) =>
     props.$direction === "col" ? "column nowrap" : "row nowrap"};
   gap: ${(props) => props.$gap || "16px"};
@@ -25,7 +22,6 @@ const FlexContainer = styled.div<{
   background-color: ${(props) => props.$bgColor || "transparent"};
   padding: ${(props) => props.$padding || "0"};
   margin: ${(props) => props.$margin || "0"};
-  border-radius: ${(props) => props.$rounded || "0"};
 `;
 
 const Text = styled.p<{
@@ -83,16 +79,16 @@ const Input = styled.input<{ $error?: boolean }>`
   transition: border-color 0.2s ease;
 
   &:focus {
-    border-color: ${(props) => (props.$error ? "#ef4444" : "#3b82f6")};
+    border-color: ${(props) => (props.$error ? "#ef4444" : "#bfbfbf")};
     outline: none;
   }
 
   &:hover {
-    border-color: ${(props) => (props.$error ? "#ef4444" : "#3b82f6")};
+    border-color: ${(props) => (props.$error ? "#ef4444" : "#bfbfbf")};
   }
 
   &::placeholder {
-    color: #d9d9d9;
+    color: #B9B9B9;
   }
 `;
 
@@ -112,8 +108,8 @@ const Checkbox = styled.input`
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
   &:checked {
-    background-color: #3b82f6;
-    border-color: #3b82f6;
+    background-color: #bfbfbf;
+    border-color: #bfbfbf;
   }
 
   &:checked::after {

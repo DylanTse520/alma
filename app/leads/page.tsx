@@ -2,66 +2,19 @@
 
 import { FlexContainer, Text } from "@components/shared";
 import { mockLeads } from "@data/mockLeads";
+import { Lead } from "@type/leadType";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Lead } from "@type/leadType";
 import LeadsTable from "./_components/leadsTable";
 import LeftSidebar from "./_components/leftSidebar";
+import SearchInput from "./_components/searchInputs";
+import StatusSelect from "./_components/statusSelect";
 
-// Main layout container
-const PageLayout = styled.div`
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
+const OverflowContainer = styled(FlexContainer)`
+  overflow: auto;
 `;
 
-// Main content area (everything except sidebar)
-const MainContent = styled.div`
-  flex: 1;
-  overflow-y: auto;
-`;
-
-// Header controls container
-const HeaderControls = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
-`;
-
-// Mock search input
-const SearchInput = styled.input`
-  padding: 8px 12px;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  width: 300px;
-  font-size: 14px;
-
-  &::placeholder {
-    color: #999;
-  }
-
-  &:focus {
-    outline: none;
-    border-color: #007bff;
-  }
-`;
-
-// Mock status dropdown
-const StatusDropdown = styled.select`
-  padding: 8px 12px;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  font-size: 14px;
-  background-color: white;
-  cursor: pointer;
-
-  &:focus {
-    outline: none;
-    border-color: #007bff;
-  }
-`;
 
 export default function LeadsPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -104,46 +57,32 @@ export default function LeadsPage() {
   }
 
   if (!isAuthenticated) {
-    return null; // This will be handled by the redirect
+    return null;
   }
-
   return (
-    <PageLayout>
+    <FlexContainer $width="100vw" $height="100vh">
       <LeftSidebar />
 
       <FlexContainer $width="1px" $height="100%" $bgColor="#e0e0e0" />
 
-      <MainContent>
-        <FlexContainer
-          $direction="col"
-          $gap="24px"
-          $padding="24px"
-          $alignItems="flex-start"
-          $width="100%"
-        >
-          {/* Simple Header */}
-          <h1
-            style={{
-              margin: 0,
-              fontSize: "32px",
-              fontWeight: "700",
-              color: "#1d1d1d",
-            }}
-          >
-            Leads
-          </h1>
+      <OverflowContainer
+        $direction="col"
+        $padding="24px 8px"
+        $width="100%"
+        $height="100%"
+        $justifyContent="start"
+        $alignItems="start"
+      >
+        <Text as="h1" $weight="600" $size="24px">
+          Leads
+        </Text>
 
-          {/* Header Controls */}
-          <HeaderControls>
-            <SearchInput type="text" placeholder="Search leads..." readOnly />
-            <StatusDropdown disabled>
-              <option value="">All Statuses</option>
-              <option value="PENDING">Pending</option>
-              <option value="REACHED_OUT">Reached Out</option>
-            </StatusDropdown>
-          </HeaderControls>
+        <FlexContainer $direction="col" $alignItems="start" $gap="12px">
+          <FlexContainer $gap="8px">
+            <SearchInput />
+            <StatusSelect />
+          </FlexContainer>
 
-          {/* Leads Table */}
           <FlexContainer
             $direction="col"
             $gap="16px"
@@ -153,7 +92,7 @@ export default function LeadsPage() {
             <LeadsTable data={mockLeads} onRowClick={handleRowClick} />
           </FlexContainer>
         </FlexContainer>
-      </MainContent>
-    </PageLayout>
+      </OverflowContainer>
+    </FlexContainer>
   );
 }
