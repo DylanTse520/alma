@@ -22,7 +22,7 @@
     },
     {
       "type": "Control", 
-      "scope": "#/properties/linkedin"
+      "scope": "#/properties/url"
     },
     {
       "type": "Instruction",
@@ -33,7 +33,10 @@
     },
     {
       "type": "Control",
-      "scope": "#/properties/visasInterested"
+      "scope": "#/properties/visasInterested",
+      "options": {
+        "format": "checkbox"
+      }
     },
     {
       "type": "Control",

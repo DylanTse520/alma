@@ -4,22 +4,25 @@
     "firstName": {
       "type": "string",
       "title": "First Name",
+      "description": "First Name",
       "minLength": 1
     },
     "lastName": {
-      "type": "string", 
+      "type": "string",
       "title": "Last Name",
+      "description": "Last Name",
       "minLength": 1
     },
     "email": {
       "type": "string",
       "title": "Email",
+      "description": "Email",
       "format": "email"
     },
-    "linkedin": {
+    "url": {
       "type": "string",
-      "title": "LinkedIn",
-      "description": "Your LinkedIn profile URL"
+      "title": "LinkedIn or Personal Website",
+      "description": "LinkedIn / Personal Website URL"
     },
     "visasInterested": {
       "type": "array",
@@ -27,26 +30,21 @@
       "uniqueItems": true,
       "items": {
         "type": "string",
-        "enum": [
-          "O-1",
-          "EB-1A",
-          "EB-2 NIW",
-          "I don't know"
-        ]
+        "enum": ["O-1", "EB-1A", "EB-2 NIW", "I don't know"]
       }
     },
     "additionalInfo": {
       "type": "string",
       "title": "Additional Information",
-      "description": "Please share any additional details about your situation or questions you have"
+      "description": "What is your current status and when does it expire? What is your past immigration history? Are you looking for long-term permanent residency or short-term employment visa or both? Are there any timeline considerations?"
     }
   },
   "required": [
     "firstName",
-    "lastName", 
+    "lastName",
     "email",
     "linkedin",
     "visasInterested",
     "additionalInfo"
   ]
-} 
+}

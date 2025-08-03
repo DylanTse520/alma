@@ -7,10 +7,11 @@ import {
   optionIs,
   uiTypeIs,
   LayoutProps,
+  and,
+  schemaMatches,
 } from "@jsonforms/core";
 import { withJsonFormsControlProps, JsonFormsDispatch } from "@jsonforms/react";
 
-// Custom Instruction Renderer
 const CustomInstructionRenderer = (props: ControlProps) => {
   const { uischema } = props;
   const text = uischema.options?.text || "";
@@ -51,14 +52,9 @@ const CustomInstructionRenderer = (props: ControlProps) => {
     }
   };
 
-  return (
-    <div style={getStyles()}>
-      {text}
-    </div>
-  );
+  return <div style={getStyles()}>{text}</div>;
 };
 
-// Custom Vertical Layout Renderer
 const CustomVerticalLayoutRenderer = (props: LayoutProps) => {
   const { uischema, schema, path, enabled, renderers, cells } = props;
   const layout = uischema as any;
@@ -81,66 +77,56 @@ const CustomVerticalLayoutRenderer = (props: LayoutProps) => {
   );
 };
 
-// Custom Input Control for string fields
 const CustomInputRenderer = (props: ControlProps) => {
   const { data, handleChange, path, schema, errors } = props;
   const isEmail = schema.format === "email";
+  const [touched, setTouched] = React.useState(false);
+  const [focused, setFocused] = React.useState(false);
   const hasError = errors && errors.length > 0;
+  const showError = hasError && touched;
+
+  const getInputStyles = () => {
+    let borderColor = "#d1d5db";
+    let boxShadow = "none";
+
+    if (showError) {
+      borderColor = "#ef4444";
+    } else if (focused) {
+      borderColor = "#3b82f6";
+      boxShadow = "0 0 0 3px rgba(59, 130, 246, 0.1)";
+    }
+
+    return {
+      width: "100%",
+      padding: "10px 12px",
+      border: `1px solid ${borderColor}`,
+      borderRadius: "6px",
+      fontSize: "14px",
+      transition: "border-color 0.2s ease, box-shadow 0.2s ease",
+      outline: "none",
+      boxShadow,
+    };
+  };
 
   return (
-    <div className="control">
-      <label
-        style={{
-          marginBottom: "4px",
-          display: "block",
-          fontWeight: "500",
-          fontSize: "14px",
-        }}
-      >
+    <div>
+      <label className="sr-only" htmlFor={schema.title}>
         {schema.title}
-        {schema.minLength && schema.minLength > 0 && (
-          <span style={{ color: "#ef4444" }}> *</span>
-        )}
       </label>
-      {schema.description && (
-        <div
-          style={{ marginBottom: "8px", fontSize: "12px", color: "#6b7280" }}
-        >
-          {schema.description}
-        </div>
-      )}
       <input
+        id={schema.title}
         type={isEmail ? "email" : "text"}
         value={data || ""}
         onChange={(e) => handleChange(path, e.target.value)}
-        placeholder={
-          isEmail
-            ? "Enter your email address"
-            : `Enter your ${schema.title?.toLowerCase()}`
-        }
-        style={{
-          width: "100%",
-          padding: "10px 12px",
-          border: hasError ? "1px solid #ef4444" : "1px solid #d1d5db",
-          borderRadius: "6px",
-          fontSize: "14px",
-          transition: "border-color 0.2s ease, box-shadow 0.2s ease",
-          outline: "none",
-        }}
-        onFocus={(e) => {
-          if (!hasError) {
-            e.target.style.borderColor = "#3b82f6";
-            e.target.style.boxShadow = "0 0 0 3px rgba(59, 130, 246, 0.1)";
-          }
-        }}
-        onBlur={(e) => {
-          if (!hasError) {
-            e.target.style.borderColor = "#d1d5db";
-            e.target.style.boxShadow = "none";
-          }
+        placeholder={schema.description}
+        style={getInputStyles()}
+        onFocus={() => setFocused(true)}
+        onBlur={() => {
+          setFocused(false);
+          setTouched(true);
         }}
       />
-      {hasError && (
+      {showError && (
         <div style={{ color: "#ef4444", fontSize: "12px", marginTop: "4px" }}>
           {Array.isArray(errors) && errors[0]
             ? String(errors[0])
@@ -151,62 +137,59 @@ const CustomInputRenderer = (props: ControlProps) => {
   );
 };
 
-// Custom Textarea Control
 const CustomTextareaRenderer = (props: ControlProps) => {
   const { data, handleChange, path, schema, uischema, errors } = props;
+  const [touched, setTouched] = React.useState(false);
+  const [focused, setFocused] = React.useState(false);
   const hasError = errors && errors.length > 0;
+  const showError = hasError && touched;
   const rows = (uischema as any)?.options?.rows || 4;
 
+  const getTextareaStyles = () => {
+    let borderColor = "#d1d5db";
+    let boxShadow = "none";
+
+    if (showError) {
+      borderColor = "#ef4444";
+    } else if (focused) {
+      borderColor = "#3b82f6";
+      boxShadow = "0 0 0 3px rgba(59, 130, 246, 0.1)";
+    }
+
+    return {
+      width: "100%",
+      padding: "10px 12px",
+      border: `1px solid ${borderColor}`,
+      borderRadius: "6px",
+      fontSize: "14px",
+      transition: "border-color 0.2s ease, box-shadow 0.2s ease",
+      outline: "none",
+      resize: "vertical" as const,
+      minHeight: "80px",
+      fontFamily: "inherit",
+      boxShadow,
+    };
+  };
+
   return (
-    <div className="control">
-      <label
-        style={{
-          marginBottom: "4px",
-          display: "block",
-          fontWeight: "500",
-          fontSize: "14px",
-        }}
-      >
+    <div>
+      <label className="sr-only" htmlFor={schema.title}>
         {schema.title}
       </label>
-      {schema.description && (
-        <div
-          style={{ marginBottom: "8px", fontSize: "12px", color: "#6b7280" }}
-        >
-          {schema.description}
-        </div>
-      )}
       <textarea
+        id={schema.title}
         value={data || ""}
         onChange={(e) => handleChange(path, e.target.value)}
-        placeholder={`Enter ${schema.title?.toLowerCase()}`}
+        placeholder={schema.description}
         rows={rows}
-        style={{
-          width: "100%",
-          padding: "10px 12px",
-          border: hasError ? "1px solid #ef4444" : "1px solid #d1d5db",
-          borderRadius: "6px",
-          fontSize: "14px",
-          transition: "border-color 0.2s ease, box-shadow 0.2s ease",
-          outline: "none",
-          resize: "vertical",
-          minHeight: "80px",
-          fontFamily: "inherit",
-        }}
-        onFocus={(e) => {
-          if (!hasError) {
-            e.target.style.borderColor = "#3b82f6";
-            e.target.style.boxShadow = "0 0 0 3px rgba(59, 130, 246, 0.1)";
-          }
-        }}
-        onBlur={(e) => {
-          if (!hasError) {
-            e.target.style.borderColor = "#d1d5db";
-            e.target.style.boxShadow = "none";
-          }
+        style={getTextareaStyles()}
+        onFocus={() => setFocused(true)}
+        onBlur={() => {
+          setFocused(false);
+          setTouched(true);
         }}
       />
-      {hasError && (
+      {showError && (
         <div style={{ color: "#ef4444", fontSize: "12px", marginTop: "4px" }}>
           {Array.isArray(errors) && errors[0]
             ? String(errors[0])
@@ -217,15 +200,17 @@ const CustomTextareaRenderer = (props: ControlProps) => {
   );
 };
 
-// Custom Checkbox Array Control
 const CustomCheckboxArrayRenderer = (props: ControlProps) => {
   const { data, handleChange, path, schema, errors } = props;
+  const [touched, setTouched] = React.useState(false);
 
   const enumOptions = (schema.items as any)?.enum || [];
   const selectedValues = data || [];
   const hasError = errors && errors.length > 0;
+  const showError = hasError && touched;
 
   const handleCheckboxChange = (value: string, checked: boolean) => {
+    setTouched(true);
     let newValues: string[];
     if (checked) {
       newValues = [...selectedValues, value];
@@ -236,21 +221,14 @@ const CustomCheckboxArrayRenderer = (props: ControlProps) => {
   };
 
   return (
-    <div className="control">
-      <label style={{ marginBottom: "8px", display: "block", fontWeight: "500", fontSize: "14px" }}>
+    <div role="group" aria-labelledby="group-label">
+      <span id="group-label" className="sr-only">
         {schema.title}
-        <span style={{ color: "#ef4444" }}> *</span>
-      </label>
-      {schema.description && (
-        <div className="description" style={{ marginBottom: "12px", fontSize: "12px", color: "#6b7280" }}>
-          {schema.description}
-        </div>
-      )}
-      <div className="checkbox-group">
+      </span>
+      <div>
         {enumOptions.map((option: string) => (
           <div
             key={option}
-            className="checkbox-item"
             style={{
               display: "flex",
               alignItems: "center",
@@ -282,7 +260,7 @@ const CustomCheckboxArrayRenderer = (props: ControlProps) => {
           </div>
         ))}
       </div>
-      {hasError && (
+      {showError && (
         <div style={{ color: "#ef4444", fontSize: "12px", marginTop: "8px" }}>
           {Array.isArray(errors) && errors[0]
             ? String(errors[0])
@@ -293,14 +271,12 @@ const CustomCheckboxArrayRenderer = (props: ControlProps) => {
   );
 };
 
-// Testers for each custom renderer
-const customVerticalLayoutTester = rankWith(5, uiTypeIs("VerticalLayout"));
-const customInstructionTester = rankWith(4, uiTypeIs("Instruction"));
+const customVerticalLayoutTester = rankWith(3, uiTypeIs("VerticalLayout"));
+const customInstructionTester = rankWith(3, uiTypeIs("Instruction"));
+const customTextareaTester = rankWith(4, optionIs("multi", true));
+const customCheckboxArrayTester = rankWith(4, optionIs("format", "checkbox"));
 const customInputTester = rankWith(3, isStringControl);
-const customCheckboxArrayTester = rankWith(3, scopeEndsWith("visasInterested"));
-const customTextareaTester = rankWith(3, scopeEndsWith("additionalInfo"));
 
-// Wrapped controls with JSONForms props
 const CustomInputControl = withJsonFormsControlProps(CustomInputRenderer);
 const CustomCheckboxArrayControl = withJsonFormsControlProps(
   CustomCheckboxArrayRenderer
@@ -308,7 +284,10 @@ const CustomCheckboxArrayControl = withJsonFormsControlProps(
 const CustomTextareaControl = withJsonFormsControlProps(CustomTextareaRenderer);
 
 export const customRenderers = [
-  { tester: customVerticalLayoutTester, renderer: CustomVerticalLayoutRenderer },
+  {
+    tester: customVerticalLayoutTester,
+    renderer: CustomVerticalLayoutRenderer,
+  },
   { tester: customInstructionTester, renderer: CustomInstructionRenderer },
   { tester: customInputTester, renderer: CustomInputControl },
   { tester: customCheckboxArrayTester, renderer: CustomCheckboxArrayControl },
