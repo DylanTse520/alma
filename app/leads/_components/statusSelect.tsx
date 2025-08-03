@@ -26,7 +26,7 @@ const Select = styled.select`
   border-width: 1px;
   border-style: solid;
   border-color: #dcdcdc;
-  font-size: 15px;
+  font-size: 14px;
   color: #b6b6b6;
   transition: border-color 0.2s ease;
 

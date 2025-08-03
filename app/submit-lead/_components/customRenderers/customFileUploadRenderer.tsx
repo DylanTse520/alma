@@ -153,20 +153,20 @@ export default function CustomFileUploadRenderer(props: ControlProps) {
       >
         {!data ? (
           <FlexContainer $direction="col" $gap="8px">
-            <Text $size="16px" $weight="600" $color="#6b7280">
+            <Text as="span" $size="16px" $weight="600" $color="#6b7280">
               Drop your resume or CV here
             </Text>
-            <Text $size="14px" $leading="1.2" $color="#9ca3af">
+            <Text as="span" $size="14px" $leading="1.2" $color="#9ca3af">
               or click to browse files
             </Text>
           </FlexContainer>
         ) : (
           <FileInfo>
             <FlexContainer $direction="col" $alignItems="start" $gap="2px">
-              <Text $size="14px" $weight="600" $color="#374151">
+              <Text as="span" $size="14px" $weight="600" $color="#374151">
                 {data.name}
               </Text>
-              <Text $size="12px" $color="#6b7280">
+              <Text as="span" $size="12px" $color="#6b7280">
                 {formatFileSize(data.size)}
               </Text>
             </FlexContainer>

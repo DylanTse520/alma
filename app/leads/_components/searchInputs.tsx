@@ -18,7 +18,7 @@ const StyledInput = styled(Input)`
   border-color: #dcdcdc;
   border-radius: 8px;
   padding: 8px 12px 8px 32px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 300;
   background-color: transparent;
 `;

@@ -1,6 +1,11 @@
 "use client";
 
-import { Text } from "@components/shared";
+import {
+  Button,
+  FlexContainer,
+  Text,
+  UnstyledButton,
+} from "@components/shared";
 import {
   Table,
   TableBody,
@@ -9,6 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from "@components/table";
+import useViewportPageSize from "@lib/useViewportPageSize";
 import {
   ColumnDef,
   flexRender,
@@ -19,172 +25,194 @@ import {
 } from "@tanstack/react-table";
 import { Lead } from "@type/leadType";
 import { ArrowDown, ChevronLeft, ChevronRight } from "lucide-react";
-import * as React from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-// Styled components for table-specific styling
 const TableContainer = styled.div`
   width: 100%;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
+  border: 1px solid #e7e7e7;
+  border-radius: 16px;
   overflow: hidden;
 `;
 
-const ClickableCell = styled.div`
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const SortableHeader = styled.div`
+const HeaderButton = styled(UnstyledButton)`
   display: flex;
   align-items: center;
   gap: 4px;
-  user-select: none;
+  width: 100%;
+  height: 100%;
 `;
 
-const EmptyState = styled.div`
-  height: 96px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+const ArrowDownIcon = styled(ArrowDown)`
+  width: 16px;
+  height: 16px;
+  color: #b6b6b6;
+  transform: translateY(1px);
 `;
 
-const PaginationContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 16px;
-  border-top: 1px solid #e5e7eb;
+const Header = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <HeaderButton>
+      <Text as="span" $size="14px" $weight="300" $color="#b6b6b6">
+        {children}
+      </Text>
+      <ArrowDownIcon />
+    </HeaderButton>
+  );
+};
+
+const NoWrapText = styled(Text)`
+  white-space: nowrap;
 `;
 
-const PaginationControls = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
+const Cell = ({ children }: { children: string }) => {
+  return (
+    <NoWrapText as="span" $weight="300" title={children}>
+      {children}
+    </NoWrapText>
+  );
+};
 
-const PageButton = styled.button<{ $active?: boolean }>`
+const ReachOutButton = styled(Button)`
+  white-space: nowrap;
+  width: fit-content;
+  margin-left: auto;
   padding: 6px 12px;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
-  background-color: ${(props) => (props.$active ? "#bfbfbf" : "#ffffff")};
-  color: ${(props) => (props.$active ? "#ffffff" : "#374151")};
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.2s;
+  border-radius: 8px;
+`;
+
+const PaginationContainer = styled(FlexContainer)`
+  border-top: 1px solid #e7e7e7;
+`;
+
+const PageNavButton = styled(UnstyledButton)`
+  height: 26px;
+  width: 26px;
+  color: #6d6d6d;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  &:hover:not(:disabled) {
-    background-color: ${(props) => (props.$active ? "#2563eb" : "#f9fafb")};
-  }
-
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
 `;
 
-interface LeadsTableProps {
-  data: Lead[];
-  onRowClick?: (lead: Lead) => void;
-}
+const PageButton = styled(UnstyledButton)<{ $active?: boolean }>`
+  height: 26px;
+  width: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid ${(props) => (props.$active ? "#202020" : "transparent")};
+  border-radius: 2px;
+  background-color: transparent;
+  color: ${(props) => (props.$active ? "#1C1C1C" : "#6D6D6D")};
+  font-size: 13px;
+  transition: all 0.2s;
+`;
 
-export default function LeadsTable({ data, onRowClick }: LeadsTableProps) {
-  const [pagination, setPagination] = React.useState<PaginationState>({
+export default function LeadsTable({
+  leads,
+  onStatusUpdate,
+}: {
+  leads: Lead[];
+  onStatusUpdate: (lead: Lead, newStatus: Lead["status"]) => void;
+}) {
+  const dynamicPageSize = useViewportPageSize();
+
+  const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: dynamicPageSize,
   });
+
+  useEffect(() => {
+    setPagination((prev) => ({
+      ...prev,
+      pageSize: dynamicPageSize,
+    }));
+  }, [dynamicPageSize]);
 
   const columns: ColumnDef<Lead>[] = [
     {
       accessorKey: "name",
-      header: () => (
-        <SortableHeader>
-          Name
-          <ArrowDown size={16} />
-        </SortableHeader>
-      ),
-      cell: ({ row }) => (
-        <ClickableCell onClick={() => onRowClick?.(row.original)}>
-          {row.getValue("name") as string}
-        </ClickableCell>
-      ),
+      header: () => <Header>Name</Header>,
+      cell: ({ row }) => <Cell>{row.getValue("name") as string}</Cell>,
       size: 200,
     },
     {
-      accessorKey: "country",
-      header: () => (
-        <SortableHeader>
-          Country
-          <ArrowDown size={16} />
-        </SortableHeader>
-      ),
-      cell: ({ row }) => (
-        <ClickableCell onClick={() => onRowClick?.(row.original)}>
-          {row.getValue("country") as string}
-        </ClickableCell>
-      ),
-      size: 150,
+      accessorKey: "createdAt",
+      header: () => <Header>Submitted</Header>,
+      cell: ({ row }) => {
+        const date = new Date(row.getValue("createdAt"));
+        return (
+          <Cell>
+            {`${date.toLocaleDateString("en-US", {
+              month: "2-digit",
+              day: "2-digit",
+              year: "numeric",
+            })}, ${date.toLocaleTimeString("en-US", {
+              hour: "numeric",
+              minute: "2-digit",
+              hour12: true,
+            })}`}
+          </Cell>
+        );
+      },
+      size: 180,
     },
     {
       accessorKey: "status",
-      header: () => (
-        <SortableHeader>
-          Status
-          <ArrowDown size={16} />
-        </SortableHeader>
-      ),
+      header: () => <Header>Status</Header>,
       cell: ({ row }) => {
-        const status = row.getValue("status") as string;
-        const isReachedOut = status === "REACHED_OUT";
+        const status = row.getValue("status") as Lead["status"];
         return (
-          <span
-            style={{
-              backgroundColor: isReachedOut ? "#dcfce7" : "#fef3c7",
-              color: isReachedOut ? "#166534" : "#92400e",
-              padding: "4px 8px",
-              borderRadius: "6px",
-              fontSize: "12px",
-              fontWeight: "500",
-            }}
-          >
-            {status.replace("_", " ")}
-          </span>
+          <Cell>
+            {status
+              .split("_")
+              .map((word) => {
+                return (
+                  word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                );
+              })
+              .join(" ")}
+          </Cell>
         );
       },
       size: 140,
     },
     {
-      accessorKey: "createdAt",
-      header: () => (
-        <SortableHeader>
-          Submitted
-          <ArrowDown size={16} />
-        </SortableHeader>
-      ),
-      cell: ({ row }) => {
-        const date = new Date(row.getValue("createdAt"));
-        return (
-          <span style={{ fontSize: "12px", color: "#6b7280" }}>
-            {date.toLocaleDateString()}{" "}
-            {date.toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </span>
-        );
-      },
+      accessorKey: "country",
+      header: () => <Header>Country</Header>,
+      cell: ({ row }) => <Cell>{row.getValue("country") as string}</Cell>,
       size: 180,
+    },
+    {
+      id: "actions",
+      header: () => null,
+      cell: ({ row }) => {
+        const status = row.getValue("status") as Lead["status"];
+        const canReachOut = status === "PENDING";
+
+        if (canReachOut) {
+          return (
+            <ReachOutButton
+              onClick={() =>
+                onStatusUpdate(row.original, "REACHED_OUT" as Lead["status"])
+              }
+              disabled={!canReachOut}
+            >
+              Reach Out
+            </ReachOutButton>
+          );
+        }
+      },
+      size: 120,
     },
   ];
 
   const table = useReactTable({
-    data,
+    data: leads,
     columns,
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
@@ -203,12 +231,11 @@ export default function LeadsTable({ data, onRowClick }: LeadsTableProps) {
               {headerGroup.headers.map((header) => (
                 <TableHead
                   key={header.id}
-                  style={{
-                    width:
-                      header.column.getSize() === Number.MAX_SAFE_INTEGER
-                        ? "auto"
-                        : `${header.column.getSize()}px`,
-                  }}
+                  $width={
+                    header.column.getSize() === Number.MAX_SAFE_INTEGER
+                      ? "auto"
+                      : `${header.column.getSize()}px`
+                  }
                 >
                   {header.isPlaceholder
                     ? null
@@ -228,12 +255,11 @@ export default function LeadsTable({ data, onRowClick }: LeadsTableProps) {
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
                     key={cell.id}
-                    style={{
-                      width:
-                        cell.column.getSize() === Number.MAX_SAFE_INTEGER
-                          ? "auto"
-                          : `${cell.column.getSize()}px`,
-                    }}
+                    $width={
+                      cell.column.getSize() === Number.MAX_SAFE_INTEGER
+                        ? "auto"
+                        : `${cell.column.getSize()}px`
+                    }
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
@@ -243,28 +269,30 @@ export default function LeadsTable({ data, onRowClick }: LeadsTableProps) {
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length}>
-                <EmptyState>
-                  <Text $size="16px" $color="#666666">
+                <FlexContainer $height="96px">
+                  <Text as="span" $size="16px" $weight="300" $color="#666666">
                     No leads found
                   </Text>
-                </EmptyState>
+                </FlexContainer>
               </TableCell>
             </TableRow>
           )}
         </TableBody>
       </Table>
 
-      {/* Pagination Controls */}
-      <PaginationContainer>
-        <PaginationControls>
-          <PageButton
+      <PaginationContainer
+        $height="48px"
+        $justifyContent="end"
+        $padding="0 36px 0 0"
+      >
+        <FlexContainer $gap="8px">
+          <PageNavButton
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
             <ChevronLeft size={16} />
-          </PageButton>
+          </PageNavButton>
 
-          {/* Page Numbers */}
           {Array.from({ length: Math.min(5, table.getPageCount()) }, (_, i) => {
             const pageIndex = table.getState().pagination.pageIndex;
             const totalPages = table.getPageCount();
@@ -290,13 +318,13 @@ export default function LeadsTable({ data, onRowClick }: LeadsTableProps) {
             );
           })}
 
-          <PageButton
+          <PageNavButton
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
             <ChevronRight size={16} />
-          </PageButton>
-        </PaginationControls>
+          </PageNavButton>
+        </FlexContainer>
       </PaginationContainer>
     </TableContainer>
   );

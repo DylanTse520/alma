@@ -35,7 +35,7 @@ export default function LeftSidebar() {
 
   return (
     <RelativeContainer
-      $width="240px"
+      $width="260px"
       $height="100%"
       $padding="32px"
       $direction="col"
@@ -49,12 +49,12 @@ export default function LeftSidebar() {
 
         <FlexContainer $direction="col" $alignItems="start" $gap="20px">
           <UnstyledButton>
-            <Text $weight="600" $size="16px">
+            <Text as="span" $weight="600" $size="16px">
               Leads
             </Text>
           </UnstyledButton>
           <UnstyledButton>
-            <Text $weight="300" $size="16px">
+            <Text as="span" $weight="300" $size="16px">
               Settings
             </Text>
           </UnstyledButton>
@@ -63,10 +63,14 @@ export default function LeftSidebar() {
 
       <UnstyledButton onClick={handleLogout}>
         <FlexContainer $direction="row" $alignItems="center" $gap="12px">
-          <CircleContainer $width="44px" $height="44px">
-            <Text $weight="600">A</Text>
+          <CircleContainer $width="44px" $height="44px" $bgColor="#ECECEC">
+            <Text as="span" $weight="600">
+              A
+            </Text>
           </CircleContainer>
-          <Text $weight="700">Admin</Text>
+          <Text as="span" $weight="700">
+            Admin
+          </Text>
         </FlexContainer>
       </UnstyledButton>
     </RelativeContainer>

@@ -21,7 +21,7 @@ export default function CustomInstructionRenderer(props: ControlProps) {
         </Text>
         {text && (
           <FlexContainer $padding="0 0 24px 0">
-            <Text as="p" $size="16px" $weight="600" $leading="1.2">
+            <Text $size="16px" $weight="600" $leading="1.2">
               {text}
             </Text>
           </FlexContainer>
