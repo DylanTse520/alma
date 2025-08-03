@@ -23,7 +23,9 @@ export default function HomePage() {
         <Button as={Link} href="/submit-lead">
           Submit Your Lead
         </Button>
-        <Button>View Leads</Button>
+        <Button as={Link} href="/leads/login">
+          View Leads
+        </Button>
       </FlexContainer>
     </FlexContainer>
   );
