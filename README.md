@@ -1,6 +1,6 @@
 # Alma Lead Management System
 
-A modern web application for collecting and managing potential client leads for immigration law services. Built with Next.js, this system provides a streamlined interface for lead submission and an admin dashboard for lead management.
+A modern web application for collecting and managing potential client leads for immigration law services. Built with Next.js 15, this system provides a streamlined interface for lead submission and an admin dashboard for lead management.
 
 ## 🚀 Running the Application Locally
 
@@ -14,17 +14,20 @@ Before running the application, ensure you have the following installed:
 ### Installation & Setup
 
 1. **Clone the repository** (if you haven't already):
+
    ```bash
    git clone <repository-url>
-   cd alma-interview
+   cd alma
    ```
 
 2. **Install dependencies**:
+
    ```bash
    npm install
    ```
 
 3. **Start the development server**:
+
    ```bash
    npm run dev
    ```
@@ -57,40 +60,78 @@ Once running, you can access:
 
 ### Technology Stack
 
-**Frontend Framework: Next.js 15 (App Router)**
-- **Why**: Modern React framework with built-in SSR, excellent TypeScript support, and optimized performance
+**Frontend Framework: Next.js 15.4.5 (App Router)**
+
+- **Why**: Latest React framework with built-in SSR, excellent TypeScript support, and optimized performance
 - **App Router**: Leverages the new App Router for better file-based routing and layouts
+- **React 19.1.0**: Latest React version for improved performance and developer experience
 - **Benefits**: Server-side rendering, automatic code splitting, and excellent developer experience
 
-**State Management: Jotai**
+**State Management: Jotai 2.12.5**
+
 - **Why**: Lightweight atomic state management library
 - **Benefits**: Simple API, excellent TypeScript support, and avoids prop drilling
-- **Usage**: Currently manages form data state across components
+- **Usage**: Currently manages leads data state across components
 
-**Styling: Styled Components**
+**Styling: Styled Components 6.1.19**
+
 - **Why**: CSS-in-JS solution that provides component-scoped styling
 - **Benefits**: Dynamic styling based on props, TypeScript support, and SSR compatibility
 - **Implementation**: Custom registry for SSR support to prevent hydration mismatches
 
-**Form Management: JSON Forms**
+**Form Management: JSON Forms 3.6.0**
+
 - **Why**: Schema-driven form generation for complex, dynamic forms
-- **Benefits**: 
+- **Benefits**:
   - Separation of data structure (JSON Schema) from presentation (UI Schema)
   - Custom renderers for specialized components
   - Built-in validation and error handling
   - Maintainable and scalable form logic
+
+**Data Management: TanStack React Table 8.21.3**
+
+- **Why**: Powerful table library for data display and manipulation
+- **Benefits**: Efficient rendering, sorting, pagination, and filtering capabilities
+
+**Icons: Lucide React 0.536.0**
+
+- **Why**: Beautiful, customizable SVG icons
+- **Benefits**: Tree-shakable, consistent design, and TypeScript support
 
 ### Key Design Decisions
 
 #### 1. Schema-Driven Form Architecture
 
 **Decision**: Use JSON Schema and UI Schema for form definition
+
+**Data Schema** (`app/_data/schema.json`):
+
 ```json
-// Data structure defined in schema.json
-// UI layout and components defined in uischema.json
+{
+  "type": "object",
+  "properties": {
+    "firstName": { "type": "string", "title": "First Name" },
+    "lastName": { "type": "string", "title": "Last Name" },
+    "email": { "type": "string", "format": "email" },
+    "url": { "type": "string", "title": "LinkedIn or Personal Website" },
+    "resume": { "type": "object", "title": "Resume / CV" },
+    "visasInterested": {
+      "type": "array",
+      "items": { "enum": ["O-1", "EB-1A", "EB-2 NIW", "I don't know"] }
+    },
+    "additionalInfo": { "type": "string", "title": "Additional Information" }
+  }
+}
 ```
 
+**UI Schema** (`app/_data/uischema.json`):
+
+- Defines layout with custom instruction components
+- Specifies specialized renderers (file upload, checkbox arrays, textareas)
+- Includes contextual icons and helpful messaging
+
 **Rationale**:
+
 - **Maintainability**: Form structure can be modified without code changes
 - **Validation**: Built-in JSON Schema validation
 - **Flexibility**: Easy to add/remove fields or change layouts
@@ -100,105 +141,67 @@ Once running, you can access:
 
 **Decision**: Implement custom renderers for specialized form components
 
-**Components**:
+**Available Renderers**:
+
 - `CustomInputRenderer` - Styled text inputs with error states
-- `CustomTextareaRenderer` - Multi-line text areas
-- `CustomFileUploadRenderer` - File upload with validation
-- `CustomCheckboxArrayRenderer` - Multi-select checkboxes
-- `CustomInstructionRenderer` - Informational sections with icons
-- `CustomVerticalLayoutRenderer` - Layout container
+- `CustomTextareaRenderer` - Multi-line text areas with configurable rows
+- `CustomFileUploadRenderer` - File upload with validation and preview
+- `CustomCheckboxArrayRenderer` - Multi-select checkboxes for visa types
+- `CustomInstructionRenderer` - Contextual information sections with icons
+- `CustomVerticalLayoutRenderer` - Layout container for form structure
+
+**Renderer Registration**:
+
+```typescript
+const customRenderers = [
+  {
+    tester: customVerticalLayoutTester,
+    renderer: CustomVerticalLayoutRenderer,
+  },
+  { tester: customInstructionTester, renderer: CustomInstructionRenderer },
+  { tester: customFileUploadTester, renderer: CustomFileUploadControl },
+  { tester: customInputTester, renderer: CustomInputControl },
+  { tester: customCheckboxArrayTester, renderer: CustomCheckboxArrayControl },
+  { tester: customTextareaTester, renderer: CustomTextareaControl },
+];
+```
 
 **Rationale**:
+
 - **Brand Consistency**: Custom styling that matches Alma's design system
 - **Enhanced UX**: Specialized components for better user experience
 - **Flexibility**: Easy to modify individual component behavior
 - **Reusability**: Components can be reused across different forms
 
-#### 3. Mock Authentication System
-
-**Decision**: Simple localStorage-based authentication for demo purposes
-
-**Implementation**:
-```typescript
-// Demo credentials hardcoded for simplicity
-const ADMIN_CREDENTIALS = {
-  email: "admin@tryalma.ai",
-  password: "correctpassword"
-};
-```
-
-**Rationale**:
-- **Demo-Ready**: Immediate functionality without backend setup
-- **Simplicity**: Easy to understand and test
-- **Placeholder**: Clear indication this would be replaced with real auth in production
-
-#### 4. Component Architecture
+#### 3. Component Architecture
 
 **Decision**: Atomic design principles with shared styled components
 
+**Shared Components** (`app/_components/shared.tsx`):
+
+- `FlexContainer` - Flexible layout container with configurable props
+- `Text` - Typography component with size, weight, and color options
+- `Button` - Primary button with hover states and loading support
+- `UnstyledButton` - Minimal button for custom implementations
+- `Input` - Form input with error states and focus styling
+- `Checkbox` - Custom checkbox with styled appearance
+
 **Structure**:
-- `sharedStyles.tsx` - Reusable UI primitives (Button, FlexContainer, Text)
-- Feature-specific components in dedicated directories
-- Custom renderers as composable units
-
-**Rationale**:
-- **Consistency**: Shared components ensure uniform styling
-- **Maintainability**: Changes to base components propagate throughout the app
-- **Developer Experience**: Easy to build new features with existing primitives
-
-#### 5. Data Layer
-
-**Decision**: Mock data with TypeScript interfaces
-
-**Implementation**:
-- `mockLeads.ts` - Sample data for development and demo
-- Strong TypeScript interfaces for type safety
-- TanStack React Table for efficient data display
-
-**Rationale**:
-- **Type Safety**: Prevents runtime errors and improves developer experience
-- **Demo-Ready**: Immediate data visualization without backend
-- **Performance**: React Table provides efficient rendering for large datasets
-
-### Folder Structure Rationale
 
 ```
 app/
 ├── _components/     # Shared, reusable components
 ├── _data/          # Schemas and mock data
 ├── _lib/           # Utility functions and setup
-├── _store/         # State management
+├── _store/         # State management (Jotai atoms)
+├── _type/          # TypeScript type definitions
 ├── leads/          # Lead management feature
 └── submit-lead/    # Lead submission feature
 ```
 
-**Why this structure**:
-- **Feature-based**: Related functionality grouped together
-- **Underscore prefix**: Indicates shared/utility directories
-- **Scalability**: Easy to add new features without restructuring
-- **Next.js App Router**: Leverages file-based routing conventions
+**Rationale**:
 
-### Performance Considerations
-
-1. **Turbopack**: Fast development builds and hot reloading
-2. **Component Lazy Loading**: Form components only render when needed
-3. **Styled Components SSR**: Proper server-side rendering setup
-4. **Type Safety**: Compile-time error checking reduces runtime issues
-
-### Future Considerations
-
-This architecture was designed with extensibility in mind:
-
-- **Backend Integration**: Easy to replace mock data with API calls
-- **Authentication**: Auth system can be swapped for production solution
-- **Form Expansion**: New forms can be added by creating new schemas
-- **Deployment**: Ready for Vercel deployment with minimal configuration
-
-### Trade-offs Made
-
-1. **Mock vs Real Data**: Chose mock data for demo simplicity over backend complexity
-2. **Client-side Auth**: Simple localStorage over secure server-side sessions
-3. **Styled Components**: CSS-in-JS over CSS modules for dynamic styling capabilities
-4. **JSON Forms**: Schema-driven over hand-coded forms for maintainability
-
-This architecture balances development speed, maintainability, and user experience while providing a solid foundation for future enhancements.
+- **Consistency**: Shared components ensure uniform styling
+- **Maintainability**: Changes to base components propagate throughout the app
+- **Developer Experience**: Easy to build new features with existing primitives
+- **Type Safety**: Strong TypeScript interfaces prevent runtime errors

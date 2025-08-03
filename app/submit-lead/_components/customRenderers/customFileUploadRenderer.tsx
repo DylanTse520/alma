@@ -1,4 +1,4 @@
-import { FlexContainer, Input, Text, Button } from "@components/sharedStyles";
+import { FlexContainer, Text } from "@components/shared";
 import { ControlProps } from "@jsonforms/core";
 import { getErrorMessage } from "@lib/getErrorMessage";
 import { useState, useRef } from "react";
@@ -14,12 +14,12 @@ const FileUploadContainer = styled.div<{ $error?: boolean }>`
   cursor: pointer;
 
   &:hover {
-    border-color: ${(props) => (props.$error ? "#ef4444" : "#3b82f6")};
+    border-color: ${(props) => (props.$error ? "#ef4444" : "#bfbfbf")};
     background-color: #f8fafc;
   }
 
   &.dragover {
-    border-color: #3b82f6;
+    border-color: #bfbfbf;
     background-color: #eff6ff;
   }
 `;
@@ -153,20 +153,20 @@ export default function CustomFileUploadRenderer(props: ControlProps) {
       >
         {!data ? (
           <FlexContainer $direction="col" $gap="8px">
-            <Text $size="16px" $weight="600" $color="#6b7280">
+            <Text as="span" $size="16px" $weight="600" $color="#6b7280">
               Drop your resume or CV here
             </Text>
-            <Text $size="14px" $leading="1.2" $color="#9ca3af">
+            <Text as="span" $size="14px" $leading="1.2" $color="#9ca3af">
               or click to browse files
             </Text>
           </FlexContainer>
         ) : (
           <FileInfo>
             <FlexContainer $direction="col" $alignItems="start" $gap="2px">
-              <Text $size="14px" $weight="600" $color="#374151">
+              <Text as="span" $size="14px" $weight="600" $color="#374151">
                 {data.name}
               </Text>
-              <Text $size="12px" $color="#6b7280">
+              <Text as="span" $size="12px" $color="#6b7280">
                 {formatFileSize(data.size)}
               </Text>
             </FlexContainer>

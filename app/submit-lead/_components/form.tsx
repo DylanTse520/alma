@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, FlexContainer } from "@components/sharedStyles";
+import { Button, FlexContainer } from "@components/shared";
 import schema from "@data/schema.json";
 import uischema from "@data/uischema.json";
 import { JsonForms } from "@jsonforms/react";

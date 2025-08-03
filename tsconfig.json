@@ -21,10 +21,9 @@
     "baseUrl": "./app",
     "paths": {
       "@lib/*": ["_lib/*"],
-      "@apis/*": ["_apis/*"],
       "@data/*": ["_data/*"],
-      "@type/*": ["_type/*"],
       "@store/*": ["_store/*"],
+      "@type/*": ["_type/*"],
       "@components/*": ["_components/*"]
     }
   },

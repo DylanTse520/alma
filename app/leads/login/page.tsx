@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, FlexContainer, Text, Input } from "@components/sharedStyles";
+import { Button, FlexContainer, Text, Input } from "@components/shared";
 
 const ADMIN_CREDENTIALS = {
   email: "admin@tryalma.ai",
@@ -51,10 +51,15 @@ export default function LoginPage() {
         $width="100%"
         style={{ maxWidth: "400px" }}
       >
-        <FlexContainer $direction="col" $gap="24px" $width="100%" $margin="64px 0">
-            <Text as="h1" $size="24px" $weight="700" $color="#1d1d1d">
-              Admin Login
-            </Text>
+        <FlexContainer
+          $direction="col"
+          $gap="24px"
+          $width="100%"
+          $margin="64px 0"
+        >
+          <Text as="h1" $size="24px" $weight="700" $color="#1d1d1d">
+            Admin Login
+          </Text>
 
           <FlexContainer $direction="col" $gap="16px" $width="100%">
             <FlexContainer
@@ -109,14 +114,14 @@ export default function LoginPage() {
         </FlexContainer>
 
         <FlexContainer $direction="col" $gap="8px">
-          <Text $size="12px" $leading="1.2" $color="#999999">
+          <Text as="span" $size="12px" $leading="1.2" $color="#999999">
             Demo credentials:
           </Text>
           <FlexContainer $direction="col" $gap="2px">
-            <Text $size="12px" $leading="1.2" $color="#999999">
+            <Text as="span" $size="12px" $leading="1.2" $color="#999999">
               Email: admin@tryalma.ai
             </Text>
-            <Text $size="12px" $leading="1.2" $color="#999999">
+            <Text as="span" $size="12px" $leading="1.2" $color="#999999">
               Password: correctpassword
             </Text>
           </FlexContainer>

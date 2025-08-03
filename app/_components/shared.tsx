@@ -62,6 +62,12 @@ const Button = styled.button`
   }
 `;
 
+const UnstyledButton = styled.button`
+  border: none;
+  background: none;
+  cursor: pointer;
+`;
+
 const Input = styled.input<{ $error?: boolean }>`
   width: 100%;
   padding: 12px 12px;
@@ -73,16 +79,16 @@ const Input = styled.input<{ $error?: boolean }>`
   transition: border-color 0.2s ease;
 
   &:focus {
-    border-color: ${(props) => (props.$error ? "#ef4444" : "#3b82f6")};
+    border-color: ${(props) => (props.$error ? "#ef4444" : "#bfbfbf")};
     outline: none;
   }
 
   &:hover {
-    border-color: ${(props) => (props.$error ? "#ef4444" : "#3b82f6")};
+    border-color: ${(props) => (props.$error ? "#ef4444" : "#bfbfbf")};
   }
 
   &::placeholder {
-    color: #d9d9d9;
+    color: #B9B9B9;
   }
 `;
 
@@ -98,13 +104,14 @@ const Checkbox = styled.input`
   border-color: #e0e0e0;
   border-radius: 4px;
   background-color: white;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
   &:checked {
-    background-color: #3b82f6;
-    border-color: #3b82f6;
+    background-color: #bfbfbf;
+    border-color: #bfbfbf;
   }
-  
+
   &:checked::after {
     content: "✓";
     display: block;
@@ -116,4 +123,4 @@ const Checkbox = styled.input`
   }
 `;
 
-export { Button, FlexContainer, Text, Input, Checkbox };
+export { Button, UnstyledButton, FlexContainer, Text, Input, Checkbox };

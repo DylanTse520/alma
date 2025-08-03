@@ -1,4 +1,4 @@
-import { FlexContainer, Input, Text } from "@components/sharedStyles";
+import { FlexContainer, Input, Text } from "@components/shared";
 import { ControlProps } from "@jsonforms/core";
 import { getErrorMessage } from "@lib/getErrorMessage";
 import { useState } from "react";
