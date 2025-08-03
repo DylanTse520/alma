@@ -27,6 +27,13 @@
       "scope": "#/properties/url"
     },
     {
+      "type": "Control",
+      "scope": "#/properties/resume",
+      "options": {
+        "format": "file"
+      }
+    },
+    {
       "type": "Instruction",
       "options": {
         "iconPath": "/images/die.png",

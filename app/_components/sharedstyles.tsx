@@ -77,6 +77,10 @@ const Input = styled.input<{ $error?: boolean }>`
     outline: none;
   }
 
+  &:hover {
+    border-color: ${(props) => (props.$error ? "#ef4444" : "#3b82f6")};
+  }
+
   &::placeholder {
     color: #d9d9d9;
   }

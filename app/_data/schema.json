@@ -22,6 +22,18 @@
       "title": "LinkedIn or Personal Website",
       "description": "LinkedIn / Personal Website URL"
     },
+    "resume": {
+      "type": "object",
+      "title": "Resume / CV",
+      "description": "Upload your resume or CV (PDF, DOC, DOCX)",
+      "properties": {
+        "name": { "type": "string" },
+        "size": { "type": "number" },
+        "type": { "type": "string" },
+        "lastModified": { "type": "number" },
+        "data": { "type": "string" }
+      }
+    },
     "visasInterested": {
       "type": "array",
       "title": "Visas categories of interest",
@@ -42,6 +54,7 @@
     "lastName",
     "email",
     "url",
+    "resume",
     "visasInterested",
     "additionalInfo"
   ]
