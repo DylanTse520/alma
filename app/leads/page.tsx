@@ -5,7 +5,8 @@ import { mockLeads } from "@data/mockLeads";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import LeadsTable, { Lead } from "./_components/leadsTable";
+import { Lead } from "@type/leadType";
+import LeadsTable from "./_components/leadsTable";
 import LeftSidebar from "./_components/leftSidebar";
 
 // Main layout container
