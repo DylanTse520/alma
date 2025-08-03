@@ -58,7 +58,6 @@ const PaginationContainer = styled.div`
   justify-content: flex-end;
   padding: 16px;
   border-top: 1px solid #e5e7eb;
-  background-color: #fafafa;
 `;
 
 const PaginationControls = styled.div`

@@ -20,7 +20,6 @@ const PageLayout = styled.div`
 const MainContent = styled.div`
   flex: 1;
   overflow-y: auto;
-  background-color: #ffffff;
 `;
 
 // Header controls container
@@ -111,6 +110,8 @@ export default function LeadsPage() {
   return (
     <PageLayout>
       <LeftSidebar />
+
+      <FlexContainer $width="1px" $height="100%" $bgColor="#e0e0e0" />
 
       <MainContent>
         <FlexContainer

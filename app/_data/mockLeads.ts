@@ -1,6 +1,5 @@
 import { Lead } from "@type/leadType";
 
-// Mock leads data based on the actual form schema
 export const mockLeads: Lead[] = [
   {
     id: 1,

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const FlexContainer = styled.div<{
+  $position?: string;
   $direction?: "row" | "col";
   $gap?: string;
   $justifyContent?: string;
@@ -10,8 +11,10 @@ const FlexContainer = styled.div<{
   $bgColor?: string;
   $padding?: string;
   $margin?: string;
+  $rounded?: string;
 }>`
   display: flex;
+  position: ${(props) => props.$position || "static"};
   flex-flow: ${(props) =>
     props.$direction === "col" ? "column nowrap" : "row nowrap"};
   gap: ${(props) => props.$gap || "16px"};
@@ -22,6 +25,7 @@ const FlexContainer = styled.div<{
   background-color: ${(props) => props.$bgColor || "transparent"};
   padding: ${(props) => props.$padding || "0"};
   margin: ${(props) => props.$margin || "0"};
+  border-radius: ${(props) => props.$rounded || "0"};
 `;
 
 const Text = styled.p<{
@@ -62,6 +66,12 @@ const Button = styled.button`
   }
 `;
 
+const UnstyledButton = styled.button`
+  border: none;
+  background: none;
+  cursor: pointer;
+`;
+
 const Input = styled.input<{ $error?: boolean }>`
   width: 100%;
   padding: 12px 12px;
@@ -98,13 +108,14 @@ const Checkbox = styled.input`
   border-color: #e0e0e0;
   border-radius: 4px;
   background-color: white;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
   &:checked {
     background-color: #3b82f6;
     border-color: #3b82f6;
   }
-  
+
   &:checked::after {
     content: "✓";
     display: block;
@@ -116,4 +127,4 @@ const Checkbox = styled.input`
   }
 `;
 
-export { Button, FlexContainer, Text, Input, Checkbox };
+export { Button, UnstyledButton, FlexContainer, Text, Input, Checkbox };
