@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Button, FlexContainer, Text } from '../_components/sharedStyles';
-import LeadsTable, { Lead } from './_components/leadsTable';
-import LeftSidebar from './_components/leftSidebar';
-import { mockLeads } from '../_data/mockLeads';
-import styled from 'styled-components';
+import { FlexContainer, Text } from "@components/sharedStyles";
+import { mockLeads } from "@data/mockLeads";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+import LeadsTable, { Lead } from "./_components/leadsTable";
+import LeftSidebar from "./_components/leftSidebar";
 
 // Main layout container
 const PageLayout = styled.div`
@@ -37,11 +37,11 @@ const SearchInput = styled.input`
   border-radius: 6px;
   width: 300px;
   font-size: 14px;
-  
+
   &::placeholder {
     color: #999;
   }
-  
+
   &:focus {
     outline: none;
     border-color: #007bff;
@@ -56,14 +56,12 @@ const StatusDropdown = styled.select`
   font-size: 14px;
   background-color: white;
   cursor: pointer;
-  
+
   &:focus {
     outline: none;
     border-color: #007bff;
   }
 `;
-
-
 
 export default function LeadsPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -73,11 +71,11 @@ export default function LeadsPage() {
   useEffect(() => {
     // Check authentication status
     const checkAuth = () => {
-      const loggedIn = localStorage.getItem('adminLoggedIn');
-      if (loggedIn === 'true') {
+      const loggedIn = localStorage.getItem("adminLoggedIn");
+      if (loggedIn === "true") {
         setIsAuthenticated(true);
       } else {
-        router.push('/leads/login');
+        router.push("/leads/login");
         return;
       }
       setIsLoading(false);
@@ -86,23 +84,18 @@ export default function LeadsPage() {
     checkAuth();
   }, [router]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('adminLoggedIn');
-    router.push('/leads/login');
-  };
-
   const handleRowClick = (lead: Lead) => {
     // For now, just log the lead details
     // In a real app, you might navigate to a detail page or open a modal
-    console.log('Lead clicked:', lead);
+    console.log("Lead clicked:", lead);
   };
 
   if (isLoading) {
     return (
-      <FlexContainer 
-        $direction="col" 
-        $justifyContent="center" 
-        $alignItems="center" 
+      <FlexContainer
+        $direction="col"
+        $justifyContent="center"
+        $alignItems="center"
         $height="100vh"
       >
         <Text>Loading...</Text>
@@ -117,32 +110,30 @@ export default function LeadsPage() {
   return (
     <PageLayout>
       <LeftSidebar />
-      
+
       <MainContent>
-        <FlexContainer 
-          $direction="col" 
-          $gap="24px" 
-          $padding="24px" 
+        <FlexContainer
+          $direction="col"
+          $gap="24px"
+          $padding="24px"
           $alignItems="flex-start"
           $width="100%"
         >
           {/* Simple Header */}
-          <h1 style={{ 
-            margin: 0, 
-            fontSize: '32px', 
-            fontWeight: '700', 
-            color: '#1d1d1d' 
-          }}>
+          <h1
+            style={{
+              margin: 0,
+              fontSize: "32px",
+              fontWeight: "700",
+              color: "#1d1d1d",
+            }}
+          >
             Leads
           </h1>
 
           {/* Header Controls */}
           <HeaderControls>
-            <SearchInput 
-              type="text" 
-              placeholder="Search leads..." 
-              readOnly
-            />
+            <SearchInput type="text" placeholder="Search leads..." readOnly />
             <StatusDropdown disabled>
               <option value="">All Statuses</option>
               <option value="PENDING">Pending</option>
@@ -151,16 +142,13 @@ export default function LeadsPage() {
           </HeaderControls>
 
           {/* Leads Table */}
-          <FlexContainer 
-            $direction="col" 
-            $gap="16px" 
-            $width="100%" 
+          <FlexContainer
+            $direction="col"
+            $gap="16px"
+            $width="100%"
             $alignItems="flex-start"
           >
-            <LeadsTable 
-              data={mockLeads} 
-              onRowClick={handleRowClick}
-            />
+            <LeadsTable data={mockLeads} onRowClick={handleRowClick} />
           </FlexContainer>
         </FlexContainer>
       </MainContent>

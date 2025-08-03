@@ -281,7 +281,7 @@ export default function LeadsTable({ data, onRowClick }: LeadsTableProps) {
             const totalPages = table.getPageCount();
 
             let startPage = Math.max(0, pageIndex - 2);
-            let endPage = Math.min(totalPages - 1, startPage + 4);
+            const endPage = Math.min(totalPages - 1, startPage + 4);
 
             if (endPage - startPage < 4) {
               startPage = Math.max(0, endPage - 4);

@@ -2,11 +2,10 @@ import {
   isStringControl,
   optionIs,
   rankWith,
-  uiTypeIs,
-  isObjectControl
+  uiTypeIs
 } from "@jsonforms/core";
 import { withJsonFormsControlProps } from "@jsonforms/react";
-import CustomCheckboxArrayRenderer from "./CustomCheckboxArrayRenderer";
+import CustomCheckboxArrayRenderer from "./customCheckboxArrayRenderer";
 import CustomInputRenderer from "./customInputRenderer";
 import CustomInstructionRenderer from "./customInstructionRenderer";
 import CustomTextareaRenderer from "./customTextareaRenderer";

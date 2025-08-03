@@ -7,7 +7,7 @@ export default function CustomCheckboxArrayRenderer(props: ControlProps) {
   const { data, handleChange, path, schema, errors, required } = props;
   const [touched, setTouched] = useState(false);
 
-  const enumOptions = (schema.items as any)?.enum || [];
+  const enumOptions = (schema.items as { enum?: string[] })?.enum || [];
   const selectedValues = data || [];
   const hasError = errors && errors.length > 0;
 
