@@ -1,16 +1,51 @@
-import { Button, FlexContainer } from "@components/sharedstyles";
+'use client';
+
+import { Button, FlexContainer } from "@components/sharedStyles";
+import schema from "@data/schema.json";
+import uischema from "@data/uischema.json";
+import { JsonForms } from "@jsonforms/react";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { customRenderers } from "./customRenderers";
 
 export default function Form() {
   const router = useRouter();
+  
+  const [data, setData] = useState({});
+  const [valid, setValid] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSubmit = () => {
-    router.push("/submit-lead/success");
+    if (valid) {
+      console.log("Form data:", data);
+      router.push("/submit-lead/success");
+    } else {
+      alert("Please fill in all required fields correctly.");
+    }
   };
 
+  if (!mounted) {
+    return null;
+  }
   return (
-    <FlexContainer $direction="col" $gap="16px" $width="400px">
-      <Button onClick={handleSubmit}>Submit</Button>
+    <FlexContainer $direction="col" $gap="24px" $width="600px">
+      <JsonForms
+        schema={schema}
+        uischema={uischema}
+        data={data}
+        renderers={customRenderers}
+        onChange={({ data, errors }) => {
+          setData(data);
+          setValid(!errors || errors.length === 0);
+        }}
+      />
+      <Button onClick={handleSubmit} disabled={!valid}>
+        Submit Lead
+      </Button>
     </FlexContainer>
   );
 }

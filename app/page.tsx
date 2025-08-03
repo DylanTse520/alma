@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Button, FlexContainer, Text } from "@components/sharedstyles";
+import { Button, FlexContainer, Text } from "@components/sharedStyles";
 import Link from "next/link";
 
 export default function HomePage() {

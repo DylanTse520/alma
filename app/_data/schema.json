@@ -1,0 +1,52 @@
+{
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "title": "First Name",
+      "minLength": 1
+    },
+    "lastName": {
+      "type": "string", 
+      "title": "Last Name",
+      "minLength": 1
+    },
+    "email": {
+      "type": "string",
+      "title": "Email",
+      "format": "email"
+    },
+    "linkedin": {
+      "type": "string",
+      "title": "LinkedIn",
+      "description": "Your LinkedIn profile URL"
+    },
+    "visasInterested": {
+      "type": "array",
+      "title": "Visas that you're interested in",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "O-1",
+          "EB-1A",
+          "EB-2 NIW",
+          "I don't know"
+        ]
+      }
+    },
+    "additionalInfo": {
+      "type": "string",
+      "title": "Additional Information",
+      "description": "Please share any additional details about your situation or questions you have"
+    }
+  },
+  "required": [
+    "firstName",
+    "lastName", 
+    "email",
+    "linkedin",
+    "visasInterested",
+    "additionalInfo"
+  ]
+} 

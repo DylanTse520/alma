@@ -1,0 +1,47 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Instruction",
+      "options": {
+        "text": "Please provide your basic information to get started with your visa application.",
+        "style": "header"
+      }
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/firstName"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/lastName"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/email"
+    },
+    {
+      "type": "Control", 
+      "scope": "#/properties/linkedin"
+    },
+    {
+      "type": "Instruction",
+      "options": {
+        "text": "Select all visa types that you're interested in exploring. Our team will provide guidance on which option best fits your situation.",
+        "style": "info"
+      }
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/visasInterested"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/additionalInfo",
+      "options": {
+        "multi": true,
+        "rows": 4
+      }
+    }
+  ]
+} 

@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@jsonforms/core": "^3.6.0",
+    "@jsonforms/react": "^3.6.0",
     "jotai": "^2.12.5",
     "next": "15.4.5",
     "react": "19.1.0",

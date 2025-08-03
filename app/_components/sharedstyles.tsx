@@ -56,6 +56,10 @@ const Button = styled.button`
   &:hover {
     filter: brightness(110%);
   }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export { Button, FlexContainer, Text };

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FlexContainer, Text } from "@components/sharedstyles";
+import { FlexContainer, Text } from "@components/sharedStyles";
 
 export default function Hero() {
   return (
