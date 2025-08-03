@@ -137,7 +137,7 @@ const ADMIN_CREDENTIALS = {
 **Decision**: Atomic design principles with shared styled components
 
 **Structure**:
-- `sharedStyles.tsx` - Reusable UI primitives (Button, FlexContainer, Text)
+- `shared.tsx` - Reusable UI primitives (Button, FlexContainer, Text)
 - Feature-specific components in dedicated directories
 - Custom renderers as composable units
 

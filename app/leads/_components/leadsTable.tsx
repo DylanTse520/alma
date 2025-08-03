@@ -1,6 +1,6 @@
 "use client";
 
-import { Text } from "@components/sharedStyles";
+import { Text } from "@components/shared";
 import {
   Table,
   TableBody,
@@ -17,6 +17,7 @@ import {
   PaginationState,
   useReactTable,
 } from "@tanstack/react-table";
+import { Lead } from "@type/leadType";
 import { ArrowDown, ChevronLeft, ChevronRight } from "lucide-react";
 import * as React from "react";
 import styled from "styled-components";
@@ -88,17 +89,6 @@ const PageButton = styled.button<{ $active?: boolean }>`
     cursor: not-allowed;
   }
 `;
-
-export type Lead = {
-  id: number;
-  name: string; // Combined full name
-  firstName: string; // Keep for compatibility
-  lastName: string; // Keep for compatibility
-  email: string;
-  createdAt: string; // This serves as submitted datetime
-  status: "PENDING" | "REACHED_OUT";
-  country: string;
-};
 
 interface LeadsTableProps {
   data: Lead[];

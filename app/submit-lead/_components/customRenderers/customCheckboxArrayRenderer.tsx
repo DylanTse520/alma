@@ -1,4 +1,4 @@
-import { Checkbox, FlexContainer, Text } from "@components/sharedStyles";
+import { Checkbox, FlexContainer, Text } from "@components/shared";
 import { ControlProps } from "@jsonforms/core";
 import { getErrorMessage } from "@lib/getErrorMessage";
 import { useState } from "react";

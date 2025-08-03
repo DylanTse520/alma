@@ -23,6 +23,7 @@
       "@lib/*": ["_lib/*"],
       "@data/*": ["_data/*"],
       "@store/*": ["_store/*"],
+      "@type/*": ["_type/*"],
       "@components/*": ["_components/*"]
     }
   },

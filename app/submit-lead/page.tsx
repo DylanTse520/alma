@@ -1,6 +1,6 @@
 "use client";
 
-import { FlexContainer } from "@components/sharedStyles";
+import { FlexContainer } from "@components/shared";
 import Hero from "./_components/hero";
 import Form from "./_components/form";
 

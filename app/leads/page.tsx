@@ -1,6 +1,6 @@
 "use client";
 
-import { FlexContainer, Text } from "@components/sharedStyles";
+import { FlexContainer, Text } from "@components/shared";
 import { mockLeads } from "@data/mockLeads";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

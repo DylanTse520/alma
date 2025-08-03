@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, FlexContainer, Text } from "@components/sharedStyles";
+import { Button, FlexContainer, Text } from "@components/shared";
 import Image from "next/image";
 import Link from "next/link";
 

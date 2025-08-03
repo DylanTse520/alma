@@ -1,4 +1,4 @@
-import { FlexContainer, Text } from "@components/sharedStyles";
+import { FlexContainer, Text } from "@components/shared";
 import { ControlProps } from "@jsonforms/core";
 import Image from "next/image";
 

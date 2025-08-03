@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, FlexContainer, Text, Input } from "@components/sharedStyles";
+import { Button, FlexContainer, Text, Input } from "@components/shared";
 
 const ADMIN_CREDENTIALS = {
   email: "admin@tryalma.ai",

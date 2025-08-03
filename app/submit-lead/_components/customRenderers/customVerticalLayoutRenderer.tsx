@@ -1,4 +1,4 @@
-import { FlexContainer } from "@components/sharedStyles";
+import { FlexContainer } from "@components/shared";
 import { Layout, LayoutProps } from "@jsonforms/core";
 import { JsonFormsDispatch } from "@jsonforms/react";
 

@@ -1,4 +1,3 @@
-import * as React from "react";
 import styled from "styled-components";
 
 const TableWrapper = styled.div`
@@ -79,103 +78,14 @@ const TableCaption = styled.caption`
   color: #6b7280;
 `;
 
-const TableComponent = React.forwardRef<
-  HTMLTableElement,
-  React.HTMLAttributes<HTMLTableElement>
->(({ className, ...props }, ref) => (
-  <TableWrapper>
-    <Table
-      ref={ref}
-      className={className}
-      {...props}
-    />
-  </TableWrapper>
-));
-TableComponent.displayName = "Table";
-
-const TableHeaderComponent = React.forwardRef<
-  HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <TableHeader ref={ref} className={className} {...props} />
-));
-TableHeaderComponent.displayName = "TableHeader";
-
-const TableBodyComponent = React.forwardRef<
-  HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <TableBody ref={ref} className={className} {...props} />
-));
-TableBodyComponent.displayName = "TableBody";
-
-const TableFooterComponent = React.forwardRef<
-  HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <TableFooter
-    ref={ref}
-    className={className}
-    {...props}
-  />
-));
-TableFooterComponent.displayName = "TableFooter";
-
-const TableRowComponent = React.forwardRef<
-  HTMLTableRowElement,
-  React.HTMLAttributes<HTMLTableRowElement>
->(({ className, ...props }, ref) => (
-  <TableRow
-    ref={ref}
-    className={className}
-    {...props}
-  />
-));
-TableRowComponent.displayName = "TableRow";
-
-const TableHeadComponent = React.forwardRef<
-  HTMLTableCellElement,
-  React.ThHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
-  <TableHead
-    ref={ref}
-    className={className}
-    {...props}
-  />
-));
-TableHeadComponent.displayName = "TableHead";
-
-const TableCellComponent = React.forwardRef<
-  HTMLTableCellElement,
-  React.TdHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
-  <TableCell
-    ref={ref}
-    className={className}
-    {...props}
-  />
-));
-TableCellComponent.displayName = "TableCell";
-
-const TableCaptionComponent = React.forwardRef<
-  HTMLTableCaptionElement,
-  React.HTMLAttributes<HTMLTableCaptionElement>
->(({ className, ...props }, ref) => (
-  <TableCaption
-    ref={ref}
-    className={className}
-    {...props}
-  />
-));
-TableCaptionComponent.displayName = "TableCaption";
-
 export {
-  TableComponent as Table,
-  TableHeaderComponent as TableHeader,
-  TableBodyComponent as TableBody,
-  TableFooterComponent as TableFooter,
-  TableHeadComponent as TableHead,
-  TableRowComponent as TableRow,
-  TableCellComponent as TableCell,
-  TableCaptionComponent as TableCaption,
-}; 
+  TableWrapper,
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
+};
