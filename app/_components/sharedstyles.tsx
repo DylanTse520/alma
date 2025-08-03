@@ -48,7 +48,7 @@ const Button = styled.button`
   border: none;
   border-radius: 10px;
   padding: 12px 24px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: filter 0.2s ease;
@@ -65,7 +65,7 @@ const Button = styled.button`
 const Input = styled.input<{ $error?: boolean }>`
   width: 100%;
   padding: 12px 12px;
-  font-size: 16px;
+  font-size: 14px;
   border-width: 1px;
   border-style: solid;
   border-color: ${(props) => (props.$error ? "#ef4444" : "#e0e0e0")};
@@ -77,10 +77,39 @@ const Input = styled.input<{ $error?: boolean }>`
     outline: none;
   }
 
-
   &::placeholder {
-    color: #D9D9D9;
+    color: #d9d9d9;
   }
 `;
 
-export { Button, FlexContainer, Text, Input };
+const Checkbox = styled.input`
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #e0e0e0;
+  border-radius: 4px;
+  background-color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  
+  &:checked {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+  }
+  
+  &:checked::after {
+    content: "✓";
+    display: block;
+    color: white;
+    font-size: 12px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 14px;
+  }
+`;
+
+export { Button, FlexContainer, Text, Input, Checkbox };

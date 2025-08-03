@@ -30,19 +30,21 @@ export default function Form() {
     return null;
   }
   return (
-    <FlexContainer $direction="col" $gap="24px" $width="400px">
-      <JsonForms
-        schema={schema}
-        uischema={uischema}
-        data={data}
-        renderers={customRenderers}
-        onChange={({ data, errors }) => {
-          setData(data);
-          setValid(!errors || errors.length === 0);
-        }}
-      />
+    <FlexContainer $direction="col" $gap="40px" $width="400px">
+      <FlexContainer $direction="col" $gap="24px" $width="100%">
+        <JsonForms
+          schema={schema}
+          uischema={uischema}
+          data={data}
+          renderers={customRenderers}
+          onChange={({ data, errors }) => {
+            setData(data);
+            setValid(!errors || errors.length === 0);
+          }}
+        />
+      </FlexContainer>
       <Button onClick={handleSubmit} disabled={!valid}>
-        Submit Lead
+        Submit
       </Button>
     </FlexContainer>
   );

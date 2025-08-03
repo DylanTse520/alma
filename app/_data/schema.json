@@ -24,7 +24,7 @@
     },
     "visasInterested": {
       "type": "array",
-      "title": "Visas that you're interested in",
+      "title": "Visas categories of interest",
       "uniqueItems": true,
       "items": {
         "type": "string",
