@@ -1,141 +1,15 @@
-import React from "react";
 import {
-  rankWith,
   ControlProps,
-  scopeEndsWith,
   isStringControl,
   optionIs,
+  rankWith,
   uiTypeIs,
-  LayoutProps,
-  and,
-  schemaMatches,
 } from "@jsonforms/core";
-import { withJsonFormsControlProps, JsonFormsDispatch } from "@jsonforms/react";
-
-const CustomInstructionRenderer = (props: ControlProps) => {
-  const { uischema } = props;
-  const text = uischema.options?.text || "";
-  const style = uischema.options?.style || "default";
-
-  const getStyles = () => {
-    const baseStyle = {
-      marginBottom: "16px",
-      padding: "12px",
-      borderRadius: "6px",
-      fontSize: "14px",
-      lineHeight: "1.5",
-    };
-
-    switch (style) {
-      case "header":
-        return {
-          ...baseStyle,
-          backgroundColor: "#f8fafc",
-          border: "1px solid #e2e8f0",
-          fontWeight: "500",
-          color: "#1f2937",
-        };
-      case "info":
-        return {
-          ...baseStyle,
-          backgroundColor: "#eff6ff",
-          border: "1px solid #bfdbfe",
-          color: "#1e40af",
-        };
-      default:
-        return {
-          ...baseStyle,
-          backgroundColor: "#f9fafb",
-          border: "1px solid #d1d5db",
-          color: "#374151",
-        };
-    }
-  };
-
-  return <div style={getStyles()}>{text}</div>;
-};
-
-const CustomVerticalLayoutRenderer = (props: LayoutProps) => {
-  const { uischema, schema, path, enabled, renderers, cells } = props;
-  const layout = uischema as any;
-  const elements = layout.elements || [];
-
-  return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-      {elements.map((element: any, index: number) => (
-        <JsonFormsDispatch
-          key={index}
-          uischema={element}
-          schema={schema}
-          path={path}
-          enabled={enabled}
-          renderers={renderers}
-          cells={cells}
-        />
-      ))}
-    </div>
-  );
-};
-
-const CustomInputRenderer = (props: ControlProps) => {
-  const { data, handleChange, path, schema, errors } = props;
-  const isEmail = schema.format === "email";
-  const [touched, setTouched] = React.useState(false);
-  const [focused, setFocused] = React.useState(false);
-  const hasError = errors && errors.length > 0;
-  const showError = hasError && touched;
-
-  const getInputStyles = () => {
-    let borderColor = "#d1d5db";
-    let boxShadow = "none";
-
-    if (showError) {
-      borderColor = "#ef4444";
-    } else if (focused) {
-      borderColor = "#3b82f6";
-      boxShadow = "0 0 0 3px rgba(59, 130, 246, 0.1)";
-    }
-
-    return {
-      width: "100%",
-      padding: "10px 12px",
-      border: `1px solid ${borderColor}`,
-      borderRadius: "6px",
-      fontSize: "14px",
-      transition: "border-color 0.2s ease, box-shadow 0.2s ease",
-      outline: "none",
-      boxShadow,
-    };
-  };
-
-  return (
-    <div>
-      <label className="sr-only" htmlFor={schema.title}>
-        {schema.title}
-      </label>
-      <input
-        id={schema.title}
-        type={isEmail ? "email" : "text"}
-        value={data || ""}
-        onChange={(e) => handleChange(path, e.target.value)}
-        placeholder={schema.description}
-        style={getInputStyles()}
-        onFocus={() => setFocused(true)}
-        onBlur={() => {
-          setFocused(false);
-          setTouched(true);
-        }}
-      />
-      {showError && (
-        <div style={{ color: "#ef4444", fontSize: "12px", marginTop: "4px" }}>
-          {Array.isArray(errors) && errors[0]
-            ? String(errors[0])
-            : "Invalid input"}
-        </div>
-      )}
-    </div>
-  );
-};
+import { withJsonFormsControlProps } from "@jsonforms/react";
+import React from "react";
+import CustomInstructionRenderer from "./customInstructionRenderer";
+import CustomVerticalLayoutRenderer from "./customVerticalLayoutRenderer";
+import CustomInputRenderer from "./customInputRenderer";
 
 const CustomTextareaRenderer = (props: ControlProps) => {
   const { data, handleChange, path, schema, uischema, errors } = props;
@@ -172,7 +46,7 @@ const CustomTextareaRenderer = (props: ControlProps) => {
   };
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <label className="sr-only" htmlFor={schema.title}>
         {schema.title}
       </label>
@@ -283,7 +157,7 @@ const CustomCheckboxArrayControl = withJsonFormsControlProps(
 );
 const CustomTextareaControl = withJsonFormsControlProps(CustomTextareaRenderer);
 
-export const customRenderers = [
+const customRenderers = [
   {
     tester: customVerticalLayoutTester,
     renderer: CustomVerticalLayoutRenderer,
@@ -293,3 +167,5 @@ export const customRenderers = [
   { tester: customCheckboxArrayTester, renderer: CustomCheckboxArrayControl },
   { tester: customTextareaTester, renderer: CustomTextareaControl },
 ];
+
+export default customRenderers;

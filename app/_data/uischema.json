@@ -4,8 +4,10 @@
     {
       "type": "Instruction",
       "options": {
-        "text": "Please provide your basic information to get started with your visa application.",
-        "style": "header"
+        "iconPath": "/images/file.png",
+        "iconAlt": "File icon",
+        "title": "Want to understand your visa options?",
+        "text": "Submit the form below and our team of experienced attorneys will review your information and send a preliminary assessment of your case based on your goals."
       }
     },
     {
@@ -21,14 +23,15 @@
       "scope": "#/properties/email"
     },
     {
-      "type": "Control", 
+      "type": "Control",
       "scope": "#/properties/url"
     },
     {
       "type": "Instruction",
       "options": {
-        "text": "Select all visa types that you're interested in exploring. Our team will provide guidance on which option best fits your situation.",
-        "style": "info"
+        "iconPath": "/images/die.png",
+        "iconAlt": "Die icon",
+        "title": "Visa categories of interest?"
       }
     },
     {
@@ -36,6 +39,14 @@
       "scope": "#/properties/visasInterested",
       "options": {
         "format": "checkbox"
+      }
+    },
+    {
+      "type": "Instruction",
+      "options": {
+        "iconPath": "/images/heart.png",
+        "iconAlt": "Heart icon",
+        "title": "How can we help you?"
       }
     },
     {
@@ -47,4 +58,4 @@
       }
     }
   ]
-} 
+}

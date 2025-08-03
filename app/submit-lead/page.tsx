@@ -6,7 +6,7 @@ import Form from "./_components/form";
 
 export default function SubmitLeadPage() {
   return (
-    <FlexContainer $direction="col" $gap="0px" $width="100vw">
+    <FlexContainer $direction="col" $gap="24px" $width="100vw">
       <Hero />
       <Form />
     </FlexContainer>

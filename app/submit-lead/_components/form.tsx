@@ -6,7 +6,7 @@ import uischema from "@data/uischema.json";
 import { JsonForms } from "@jsonforms/react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { customRenderers } from "./customRenderers";
+import customRenderers from "./customRenderers";
 
 export default function Form() {
   const router = useRouter();
