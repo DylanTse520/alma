@@ -9,6 +9,7 @@ import { withJsonFormsControlProps } from "@jsonforms/react";
 import React from "react";
 import CustomInstructionRenderer from "./customInstructionRenderer";
 import CustomVerticalLayoutRenderer from "./customVerticalLayoutRenderer";
+import { getErrorMessage } from "@lib/getErrorMessage";
 import CustomInputRenderer from "./customInputRenderer";
 
 const CustomTextareaRenderer = (props: ControlProps) => {
@@ -65,9 +66,7 @@ const CustomTextareaRenderer = (props: ControlProps) => {
       />
       {showError && (
         <div style={{ color: "#ef4444", fontSize: "12px", marginTop: "4px" }}>
-          {Array.isArray(errors) && errors[0]
-            ? String(errors[0])
-            : "Invalid input"}
+          {getErrorMessage(errors, schema.title)}
         </div>
       )}
     </div>
@@ -136,9 +135,8 @@ const CustomCheckboxArrayRenderer = (props: ControlProps) => {
       </div>
       {showError && (
         <div style={{ color: "#ef4444", fontSize: "12px", marginTop: "8px" }}>
-          {Array.isArray(errors) && errors[0]
-            ? String(errors[0])
-            : "Please select at least one option"}
+          {getErrorMessage(errors, schema.title) ||
+            "Please select at least one option"}
         </div>
       )}
     </div>

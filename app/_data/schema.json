@@ -4,14 +4,12 @@
     "firstName": {
       "type": "string",
       "title": "First Name",
-      "description": "First Name",
-      "minLength": 1
+      "description": "First Name"
     },
     "lastName": {
       "type": "string",
       "title": "Last Name",
-      "description": "Last Name",
-      "minLength": 1
+      "description": "Last Name"
     },
     "email": {
       "type": "string",
@@ -43,7 +41,7 @@
     "firstName",
     "lastName",
     "email",
-    "linkedin",
+    "url",
     "visasInterested",
     "additionalInfo"
   ]

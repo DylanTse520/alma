@@ -62,5 +62,25 @@ const Button = styled.button`
   }
 `;
 
-export { Button, FlexContainer, Text };
+const Input = styled.input<{ $error?: boolean }>`
+  width: 100%;
+  padding: 12px 12px;
+  font-size: 16px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: ${(props) => (props.$error ? "#ef4444" : "#e0e0e0")};
+  border-radius: 10px;
+  transition: border-color 0.2s ease;
 
+  &:focus {
+    border-color: ${(props) => (props.$error ? "#ef4444" : "#3b82f6")};
+    outline: none;
+  }
+
+
+  &::placeholder {
+    color: #D9D9D9;
+  }
+`;
+
+export { Button, FlexContainer, Text, Input };
