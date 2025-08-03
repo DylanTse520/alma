@@ -6,7 +6,7 @@ export default function useViewportPageSize() {
   useEffect(() => {
     const calculatePageSize = () => {
       const viewportHeight = window.innerHeight;
-      const availableHeight = viewportHeight - 260;
+      const availableHeight = viewportHeight - 240;
       const rowHeight = 60;
       const calculatedSize = Math.max(
         3,
